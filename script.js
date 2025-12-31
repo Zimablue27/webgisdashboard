@@ -1,55 +1,61 @@
-// Initialize map
-var map = L.map('map').setView([26.2, 92.9], 9);
+// 1. Initialize map
+var map = L.map('map').setView([25.6, 91.3], 7);
 
-// Base map
+// 2. Base map
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
 }).addTo(map);
 
-// LULC raster bounds (UPDATE WITH YOUR VALUES)
+// 3. LULC raster overlay (EXACT BOUNDS)
 var lulcBounds = [
-  [25.027693, 92.802886], // SW corner
-  [26.119415, 89.821198]  // NE corner
+  [25.027693, 89.821198],
+  [26.119415, 92.802886]
 ];
 
-// LULC raster overlay
-var lulc = L.imageOverlay(
-  'data/lulc.png',
-  lulcBounds,
-  { opacity: 0.7 }
-).addTo(map);
+var lulc = L.imageOverlay('lulc.png', lulcBounds, {
+  opacity: 0.6
+});
 
-// Boundary
-fetch("Boundary.geojson")
-.then(res => res.json())
-.then(data => {
-  var boundary = L.geoJSON(data, {
-    style: {
-      color: "red",
-      weight: 2,
-      fillOpacity: 0
-    }
-  }).addTo(map);
+// 4. Boundary
+fetch('Boundary.geojson')
+  .then(r => r.json())
+  .then(boundaryData => {
 
-  map.fitBounds(boundary.getBounds());
-
-  // Roads
-  fetch("roads.geojson")
-  .then(res => res.json())
-  .then(roadData => {
-
-    var roads = L.geoJSON(roadData, {
-      style: { color: "black", weight: 1 }
+    var boundary = L.geoJSON(boundaryData, {
+      style: {
+        color: 'red',
+        weight: 2,
+        fillOpacity: 0
+      }
     }).addTo(map);
 
-    // Layer control
-    L.control.layers(
-      { "OpenStreetMap": osm },
-      {
-        "Boundary": boundary,
-        "LULC": lulc,
-        "Roads": roads
-      }
-    ).addTo(map);
+    map.fitBounds(boundary.getBounds());
+
+    // 5. Roads
+    fetch('megresidentials.geojson')
+      .then(r => r.json())
+      .then(roadData => {
+
+        var roads = L.geoJSON(roadData, {
+          style: {
+            color: 'black',
+            weight: 1
+          }
+        }).addTo(map);
+
+        // 6. Add raster last
+        lulc.addTo(map);
+
+        // 7. Layer control
+        L.control.layers(
+          { "OpenStreetMap": osm },
+          {
+            "Boundary": boundary,
+            "Roads": roads,
+            "LULC": lulc
+          }
+        ).addTo(map);
+
+      });
+
   });
-});
