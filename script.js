@@ -47,7 +47,7 @@ fetch('Boundary.geojson')
 
     var boundary = L.geoJSON(boundaryData, {
       style: {
-        color: 'red',
+        color: 'black',
         weight: 2,
         fillOpacity: 0
       }
@@ -65,8 +65,8 @@ fetch('Boundary.geojson')
 
         var roads = L.geoJSON(roadData, {
           style: {
-            color: '#ff6600',   // high contrast
-            weight: 1
+            color: 'red',   // high contrast
+            weight: 0.5
           }
         }).addTo(map);
 
@@ -99,4 +99,5 @@ fetch('Boundary.geojson')
 
   })
   .catch(err => console.error("Boundary loading error:", err));
+
 
