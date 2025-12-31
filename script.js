@@ -5,7 +5,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Load boundary ONLY
-fetch('data/Boundary.geojson')
+fetch('Boundary.geojson')
   .then(response => {
     if (!response.ok) throw new Error('Boundary load failed');
     return response.json();
@@ -25,3 +25,4 @@ fetch('data/Boundary.geojson')
     console.error(error);
     alert("Boundary not loading – check file name or CRS");
   });
+
