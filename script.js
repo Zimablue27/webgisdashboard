@@ -13,7 +13,7 @@ var lulcBounds = [
 ];
 
 var lulc = L.imageOverlay('lulc.png', lulcBounds, {
-  opacity: 0.2
+  opacity: 0.0
 });
 
 // 4. Boundary
@@ -59,4 +59,5 @@ fetch('Boundary.geojson')
       });
 
   });
+
 
