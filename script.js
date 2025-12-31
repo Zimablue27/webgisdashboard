@@ -34,7 +34,7 @@ var lulc = L.imageOverlay(
   lulcBounds,
   {
     pane: 'lulcPane',
-    opacity: 1.0   // FULL visibility (reduce later if needed)
+    opacity: 10.0   // FULL visibility (reduce later if needed)
   }
 );
 
@@ -66,7 +66,7 @@ fetch('Boundary.geojson')
         var roads = L.geoJSON(roadData, {
           style: {
             color: '#ff6600',   // high contrast
-            weight: 2
+            weight: 1
           }
         }).addTo(map);
 
@@ -99,3 +99,4 @@ fetch('Boundary.geojson')
 
   })
   .catch(err => console.error("Boundary loading error:", err));
+
