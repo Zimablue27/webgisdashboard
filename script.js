@@ -13,7 +13,7 @@ var lulcBounds = [
 ];
 
 var lulc = L.imageOverlay('lulc.png', lulcBounds, {
-  opacity: 0.0
+  opacity: 1.0
 });
 
 // 4. Boundary
@@ -23,7 +23,7 @@ fetch('Boundary.geojson')
 
     var boundary = L.geoJSON(boundaryData, {
       style: {
-        color: 'red',
+        color: 'black',
         weight: 2,
         fillOpacity: 0
       }
@@ -38,8 +38,8 @@ fetch('Boundary.geojson')
 
         var roads = L.geoJSON(roadData, {
           style: {
-            color: 'black',
-            weight: 5
+            color: 'red',
+            weight: 3
           }
         }).addTo(map);
 
@@ -59,5 +59,6 @@ fetch('Boundary.geojson')
       });
 
   });
+
 
 
